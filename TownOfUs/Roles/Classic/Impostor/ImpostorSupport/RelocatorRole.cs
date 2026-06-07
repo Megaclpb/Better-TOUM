@@ -4,32 +4,42 @@ using MiraAPI.Events;
 using MiraAPI.GameOptions;
 using MiraAPI.Hud;
 using MiraAPI.Modifiers;
+using MiraAPI.Networking;
 using MiraAPI.Roles;
 using MiraAPI.Utilities;
 using Reactor.Networking.Attributes;
 using Reactor.Networking.Rpc;
+using Reactor.Utilities;
+using TownOfUs.Buttons.Crewmate;
 using TownOfUs.Buttons.Impostor;
+using TownOfUs.Events.Crewmate;
 using TownOfUs.Events.TouEvents;
+using TownOfUs.Interfaces;
+using TownOfUs.Modifiers;
+using TownOfUs.Modifiers.Crewmate;
+using TownOfUs.Modifiers.Game.Universal;
 using TownOfUs.Modifiers.Impostor;
+using TownOfUs.Modifiers.Neutral;
+using TownOfUs.Modules;
 using TownOfUs.Options.Roles.Impostor;
 using TownOfUs.Roles.Crewmate;
-using UnityEngine;
+using TownOfUs.Roles.Neutral;
 
 namespace TownOfUs.Roles.Impostor;
 
-public sealed class CourierRole(IntPtr cppPtr)
+public sealed class RelocatorRole(IntPtr cppPtr)
     : ImpostorRole(cppPtr), ITownOfUsRole, IWikiDiscoverable, IDoomable, ICrewVariant
 {
     public void FixedUpdate()
     {
-        if (!Player || Player.Data.Role is not CourierRole || Player.HasDied() || !Player.AmOwner ||
+        if (!Player || Player.Data.Role is not RelocatorRole || Player.HasDied() || !Player.AmOwner ||
             MeetingHud.Instance || (!HudManager.Instance.UseButton.isActiveAndEnabled &&
                                     !HudManager.Instance.PetButton.isActiveAndEnabled))
         {
             return;
         }
 
-        HudManager.Instance.KillButton.ToggleVisible(OptionGroupSingleton<CourierOptions>.Instance.CourierKill ||
+        HudManager.Instance.KillButton.ToggleVisible(OptionGroupSingleton<RelocatorOptions>.Instance.RelocatorKill ||
                                                      (Player != null && Player.GetModifiers<BaseModifier>()
                                                          .Any(x => x is ICachedRole)) ||
                                                      (Player != null && MiscUtils.ImpAliveCount == 1));
@@ -37,7 +47,7 @@ public sealed class CourierRole(IntPtr cppPtr)
 
     public RoleBehaviour CrewVariant => RoleManager.Instance.GetRole((RoleTypes)RoleId.Get<TransporterRole>());
     public DoomableType DoomHintType => DoomableType.Fearmonger;
-    public string LocaleKey => "Courier";
+    public string LocaleKey => "Relocator";
     public string RoleName => TouLocale.Get($"TouRole{LocaleKey}");
     public string RoleDescription => TouLocale.GetParsed($"TouRole{LocaleKey}IntroBlurb");
     public string RoleLongDescription => TouLocale.GetParsed($"TouRole{LocaleKey}TabDescription");
@@ -56,7 +66,7 @@ public sealed class CourierRole(IntPtr cppPtr)
     public CustomRoleConfiguration Configuration => new(this)
     {
         UseVanillaKillButton = true,
-        CanUseVent = OptionGroupSingleton<CourierOptions>.Instance.CanVent,
+        CanUseVent = OptionGroupSingleton<RelocatorOptions>.Instance.CanVent,
         Icon = TouRoleIcons.Transporter,
         OptionsScreenshot = TouBanners.ImpostorRoleBanner,
     };
@@ -85,7 +95,7 @@ public sealed class CourierRole(IntPtr cppPtr)
             MiscUtils.RunAnticheatWarning(transporter);
             return;
         }
-        if (transporter.Data.Role is not TransporterRole)
+        if (transporter.Data.Role is not RelocatorRole)
         {
             Error("RpcTransport - Invalid Transporter");
             return;

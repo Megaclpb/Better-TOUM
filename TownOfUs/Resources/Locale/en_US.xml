@@ -1720,6 +1720,19 @@
   <string name="TouOptionParasiteCanVent">Parasite Can Vent</string>
   <string name="TouOptionParasiteCanMoveIndependently">Parasite Can Move Independently</string>
   <string name="TouOptionParasiteOvertakenLooksLikeParasite">Overtaken Looks Like Parasite</string>
+  <!-- Relocator Wiki / Abilities -->
+  <string name="TouRoleRelocator">Relocator</string>
+  <string name="TouRoleRelocatorIntroBlurb">Choose Two Players To Swap Locations</string>
+  <string name="TouRoleRelocatorTabDescription">Choose two players to swap locations with one another</string>
+  <string name="TouRoleRelocatorWikiDescription">The Relocator is an Impostor Support role that can transport two players, dead or alive, to swap their locations.</string>
+  <string name="TouRoleRelocatorTransport">Transport</string>
+  <string name="TouRoleRelocatorTransportWikiDescription">Switch the positions of two players. Players can be transported out of vents. A red flash means one of the players became an invalid target, such as going on a ladder or zipline</string>
+  <!-- Relocator Options -->
+  <string name="TouOptionRelocatorTransportCooldown">Transport Cooldown</string>
+  <string name="TouOptionRelocatorMaxUses">Initial Uses</string>
+  <string name="TouOptionRelocatorMoveWithMenu">Move While Using Transport Menu (KB ONLY)</string>
+  <string name="TouOptionRelocatorCanVent">Relocator Can Vent</string>
+  <string name="TouOptionRelocatorCanKillWithTeammate">Relocator Can Kill With Teammate</string>
   <!-- Scavenger Wiki / Description -->
   <string name="TouRoleScavenger">Scavenger</string>
   <string name="TouRoleScavengerIntroBlurb">Hunt down your prey</string>
