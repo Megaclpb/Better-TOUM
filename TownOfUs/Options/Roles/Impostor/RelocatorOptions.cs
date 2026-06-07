@@ -13,8 +13,8 @@ public sealed class RelocatorOptions : AbstractOptionGroup<RelocatorRole>
     [ModdedNumberOption("TouOptionRelocatorTransportCooldown", 5f, 120f, 2.5f, MiraNumberSuffixes.Seconds)]
     public float RelocatorCooldown { get; set; } = 25f;
 
-    [ModdedNumberOption("TouOptionRelocatorMaxUses", 1f, 15f, 1f, MiraNumberSuffixes.None, "0")]
-    public float MaxNumTransports { get; set; } = 5f;
+    [ModdedNumberOption("TouOptionRelocatorMaxUses", 0f, 15f, 1f, MiraNumberSuffixes.None, "0", zeroInfinity: true)]
+    public float MaxNumTransports { get; set; } = 0f;
 
     [ModdedToggleOption("TouOptionRelocatorMoveWithMenu")]
     public bool MoveWithMenu { get; set; } = true;
