@@ -24,6 +24,7 @@ using TownOfUs.Modules;
 using TownOfUs.Options.Roles.Impostor;
 using TownOfUs.Roles.Crewmate;
 using TownOfUs.Roles.Neutral;
+using UnityEngine;
 
 namespace TownOfUs.Roles.Impostor;
 
