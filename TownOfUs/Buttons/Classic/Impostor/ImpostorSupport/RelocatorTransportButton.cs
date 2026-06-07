@@ -18,6 +18,7 @@ public sealed class RelocatorTransportButton : TownOfUsRoleButton<RelocatorRole>
         Math.Clamp(OptionGroupSingleton<RelocatorOptions>.Instance.RelocatorCooldown + MapCooldown, 5f, 120f);
 
     public override int MaxUses => (int)OptionGroupSingleton<RelocatorOptions>.Instance.MaxNumTransports;
+    public override bool ZeroIsInfinite { get; set; } = true;
     public override LoadableAsset<Sprite> Sprite => TouCrewAssets.Transport;
     public int ExtraUses { get; set; }
 
