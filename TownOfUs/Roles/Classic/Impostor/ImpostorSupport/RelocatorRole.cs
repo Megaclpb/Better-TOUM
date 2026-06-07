@@ -10,7 +10,6 @@ using MiraAPI.Utilities;
 using Reactor.Networking.Attributes;
 using Reactor.Networking.Rpc;
 using Reactor.Utilities;
-using TownOfUs.Buttons.Crewmate;
 using TownOfUs.Buttons.Impostor;
 using TownOfUs.Events.Crewmate;
 using TownOfUs.Events.TouEvents;
@@ -68,7 +67,7 @@ public sealed class RelocatorRole(IntPtr cppPtr)
     {
         UseVanillaKillButton = true,
         CanUseVent = OptionGroupSingleton<RelocatorOptions>.Instance.CanVent,
-        Icon = TouRoleIcons.Transporter,
+        Icon = TouRoleIcons.Relocator,
         OptionsScreenshot = TouBanners.ImpostorRoleBanner,
     };
 
@@ -98,7 +97,7 @@ public sealed class RelocatorRole(IntPtr cppPtr)
         }
         if (transporter.Data.Role is not RelocatorRole)
         {
-            Error("RpcTransport - Invalid Transporter");
+            Error("RpcTransport - Invalid Relocator");
             return;
         }
 
@@ -274,7 +273,7 @@ public sealed class RelocatorRole(IntPtr cppPtr)
 
         if (transporter.AmOwner)
         {
-            var button = CustomButtonSingleton<TransporterTransportButton>.Instance;
+            var button = CustomButtonSingleton<RelocatorTransportButton>.Instance;
             button.DecreaseUses();
             button.ResetCooldownAndOrEffect();
 

@@ -291,6 +291,8 @@ public static class TouRoleIcons
         new LoadableBundleAsset<Sprite>("Viking", TouAssets.MainBundle);
 
     // Impostor Support
+    public static LoadableAsset<Sprite> Relocator { get; } =
+        new LoadableBundleAsset<Sprite>("Relocator", TouAssets.MainBundle);
     public static LoadableAsset<Sprite> Bootlegger { get; } =
         new LoadableBundleAsset<Sprite>("Bootlegger", TouAssets.MainBundle);
 
