@@ -19,7 +19,7 @@ public sealed class RelocatorTransportButton : TownOfUsRoleButton<RelocatorRole>
 
     public override int MaxUses => (int)OptionGroupSingleton<RelocatorOptions>.Instance.MaxNumTransports;
     public override bool ZeroIsInfinite { get; set; } = true;
-    public override LoadableAsset<Sprite> Sprite => TouCrewAssets.Transport;
+    public override LoadableAsset<Sprite> Sprite => TouImpAssets.Transport;
     public int ExtraUses { get; set; }
 
     public override void ClickHandler()

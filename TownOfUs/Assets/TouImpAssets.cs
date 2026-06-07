@@ -6,6 +6,8 @@ namespace TownOfUs.Assets;
 public static class TouImpAssets
 {
     // THIS FILE SHOULD ONLY HOLD BUTTONS AND ROLE BANNERS, EVERYTHING ELSE BELONGS IN TouAssets.cs
+    public static LoadableAsset<Sprite> Transport { get; } =
+        new LoadableBundleAsset<Sprite>("TransportButton", TouAssets.MainBundle);
     public static LoadableAsset<Sprite> MarkSprite { get; } =
         new LoadableBundleAsset<Sprite>("MarkButton", TouAssets.MainBundle);
 
