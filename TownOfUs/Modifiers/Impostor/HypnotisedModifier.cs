@@ -1,18 +1,23 @@
 ﻿using System.Collections;
 using HarmonyLib;
 using MiraAPI.Events;
+using MiraAPI.GameOptions;
 using MiraAPI.Modifiers;
+using MiraAPI.Modifiers.Types;
 using MiraAPI.Utilities;
 using Reactor.Utilities;
 using TownOfUs.Events.TouEvents;
+using TownOfUs.Options.Roles.Impostor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace TownOfUs.Modifiers.Impostor;
 
-public sealed class HypnotisedModifier(PlayerControl hypnotist) : BaseModifier
+public sealed class HypnotisedModifier(PlayerControl hypnotist) : TimedModifier
 {
     public override string ModifierName => "Hypnotised";
+    public override float Duration => OptionGroupSingleton<HypnotistOptions>.Instance.HypnotiseDuration;
+    public override bool AutoStart => true;
     public override bool HideOnUi => true;
     public PlayerControl Hypnotist { get; } = hypnotist;
 
