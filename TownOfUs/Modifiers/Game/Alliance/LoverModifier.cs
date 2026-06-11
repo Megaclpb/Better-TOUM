@@ -306,7 +306,7 @@ public sealed class LoverModifier : AllianceGameModifier, IWikiDiscoverable, IAs
             }
         }
 
-        return null;
+        return false;
     }
 
     public static bool WinConditionMet(LoverModifier[] lovers)
