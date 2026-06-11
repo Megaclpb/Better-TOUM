@@ -13,7 +13,7 @@ using UnityEngine;
 namespace TownOfUs.Roles.Impostor;
 
 public sealed class TraitorRole(IntPtr cppPtr)
-    : ImpostorRole(cppPtr), ITownOfUsRole, IWikiDiscoverable, IDoomable, ISpawnChange, IGuessable
+    : ImpostorRole(cppPtr), ITouImpRole, IWikiDiscoverable, IDoomable, ISpawnChange, IGuessable
 {
 
     // This is so the role can be guessed without requiring it to be enabled normally

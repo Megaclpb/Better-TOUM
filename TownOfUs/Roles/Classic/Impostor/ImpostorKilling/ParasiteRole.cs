@@ -17,7 +17,7 @@ using Object = UnityEngine.Object;
 
 namespace TownOfUs.Roles.Impostor;
 
-public sealed class ParasiteRole(IntPtr cppPtr) : ImpostorRole(cppPtr), ITownOfUsRole, IWikiDiscoverable, IDoomable
+public sealed class ParasiteRole(IntPtr cppPtr) : ImpostorRole(cppPtr), ITouImpRole, IWikiDiscoverable, IDoomable
 {
     [HideFromIl2Cpp] public PlayerControl? Controlled { get; set; }
     private float _overtakeKillLockoutUntil;

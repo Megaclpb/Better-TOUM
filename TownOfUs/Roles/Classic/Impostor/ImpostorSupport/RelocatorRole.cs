@@ -28,7 +28,7 @@ using UnityEngine;
 namespace TownOfUs.Roles.Impostor;
 
 public sealed class RelocatorRole(IntPtr cppPtr)
-    : ImpostorRole(cppPtr), ITownOfUsRole, IWikiDiscoverable, IDoomable, ICrewVariant
+    : ImpostorRole(cppPtr), ITouImpRole, IWikiDiscoverable, IDoomable, ICrewVariant
 {
     public void FixedUpdate()
     {

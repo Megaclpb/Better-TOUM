@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace TownOfUs.Roles.Impostor;
 
-public sealed class MorphlingRole(IntPtr cppPtr) : ImpostorRole(cppPtr), ITownOfUsRole, IWikiDiscoverable, IDoomable
+public sealed class MorphlingRole(IntPtr cppPtr) : ImpostorRole(cppPtr), ITouImpRole, IWikiDiscoverable, IDoomable
 {
     [HideFromIl2Cpp] public PlayerControl? Sampled { get; set; }
     public DoomableType DoomHintType => DoomableType.Perception;

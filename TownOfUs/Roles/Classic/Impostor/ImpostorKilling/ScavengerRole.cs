@@ -18,7 +18,7 @@ using UnityEngine;
 namespace TownOfUs.Roles.Impostor;
 
 public sealed class ScavengerRole(IntPtr cppPtr)
-    : ImpostorRole(cppPtr), ITownOfUsRole, IWikiDiscoverable, IDoomable, ICrewVariant
+    : ImpostorRole(cppPtr), ITouImpRole, IWikiDiscoverable, IDoomable, ICrewVariant
 {
     public bool GameStarted { get; set; }
     public float TimeRemaining { get; set; }
