@@ -103,4 +103,7 @@ public static class TouModifierIcons
 
     public static LoadableAsset<Sprite> FirstRoundShield { get; } =
         new LoadableBundleAsset<Sprite>("FirstRoundShield", TouAssets.MainBundle);
+
+    public static LoadableAsset<Sprite> Seduced { get; } =
+        new LoadableBundleAsset<Sprite>("Lover", TouAssets.MainBundle);
 }

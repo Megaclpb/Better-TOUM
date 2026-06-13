@@ -214,6 +214,9 @@ public static class TouRoleIcons
     public static LoadableAsset<Sprite> Werewolf { get; } =
         new LoadableBundleAsset<Sprite>("Werewolf", TouAssets.MainBundle);
 
+    public static LoadableAsset<Sprite> Succubus { get; } =
+        new LoadableBundleAsset<Sprite>("Vampire", TouAssets.MainBundle);
+
     // Neutral Outlier
     public static LoadableAsset<Sprite> Chef { get; } =
         new LoadableBundleAsset<Sprite>("Chef", TouAssets.MainBundle);

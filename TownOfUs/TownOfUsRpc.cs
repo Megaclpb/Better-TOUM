@@ -137,6 +137,8 @@ public enum TownOfUsRpc : uint
     OfficerSyncBullets,
     SetUpCrewpostor,
     MisguessSummary,
+    SendSuccubusChat,
+    SuccubusSeduce,
 }
 
 internal enum TownOfUsInternalRpc : uint

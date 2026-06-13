@@ -91,6 +91,7 @@ public static class TownOfUsColors
     public static Color SoulCollector => new Color32(153, 255, 204, 255);
     public static Color Vampire => new Color32(163, 41, 41, 255);
     public static Color Werewolf => new Color32(168, 102, 41, 255);
+    public static Color Succubus => new Color32(255, 15, 159, 255);
 
     public static Color Spectre => new Color32(102, 41, 97, 255);
 

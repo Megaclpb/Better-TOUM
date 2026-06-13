@@ -175,6 +175,25 @@ public static class TeamChatPatches
             };
             ExtensionTeamChatRegistry.RegisterHandler(jaileeHandler);
 
+            // Succubus chat - Priority 25
+            var succubusHandler = new ExtensionTeamChatHandler
+            {
+                Priority = 25,
+                IsForced = false,
+                IsChatAvailable = () =>
+                {
+                    var genOpt = OptionGroupSingleton<GeneralOptions>.Instance;
+                    return MeetingHud.Instance &&
+                           PlayerControl.LocalPlayer.Data.Role is SuccubusRole// ||
+                           //PlayerControl.LocalPlayer.;
+                           ;
+                },
+                SendMessage = (sender, msg) => RpcSendSuccubusChat(sender, msg),
+                GetDisplayText = () => "Succubus Chat",
+                DisplayTextColor = TownOfUsColors.Succubus
+            };
+            ExtensionTeamChatRegistry.RegisterHandler(succubusHandler);
+
             // Impostor chat - Priority 30
             var impostorHandler = new ExtensionTeamChatHandler
             {
@@ -965,6 +984,23 @@ public static class TeamChatPatches
 
     [MethodRpc((uint)TownOfUsRpc.SendLoveChat)]
     public static void RpcSendLoveChat(PlayerControl player, string text)
+    {
+        if (LobbyBehaviour.Instance)
+        {
+            MiscUtils.RunAnticheatWarning(player);
+            return;
+        }
+        if (PlayerControl.LocalPlayer.Data.Role is SuccubusRole ||
+            (DeathHandlerModifier.IsFullyDead(PlayerControl.LocalPlayer) && OptionGroupSingleton<PostmortemOptions>.Instance.TheDeadKnow))
+        {
+            MiscUtils.AddTeamChat(player.Data,
+                $"<color=#{TownOfUsColors.Succubus.ToHtmlStringRGBA()}>{TouLocale.GetParsed("SuccubusChatTitle").Replace("<player>", player.Data.PlayerName)}</color>",
+                text, blackoutText: false, bubbleType: BubbleType.Lover, onLeft: !player.AmOwner);
+        }
+    }
+
+    [MethodRpc((uint)TownOfUsRpc.SendSuccubusChat)]
+    public static void RpcSendSuccubusChat(PlayerControl player, string text)
     {
         if (LobbyBehaviour.Instance)
         {

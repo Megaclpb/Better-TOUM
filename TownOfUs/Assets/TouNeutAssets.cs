@@ -81,6 +81,9 @@ public static class TouNeutAssets
     public static LoadableAsset<Sprite> ReaperVentSprite { get; } =
         new LoadableBundleAsset<Sprite>("ReaperVentButton", TouAssets.MainBundle);
 
+    public static LoadableAsset<Sprite> SeduceSprite { get; } =
+        new LoadableBundleAsset<Sprite>("BiteButton", TouAssets.MainBundle);
+
     public static LoadableAsset<Sprite> BiteSprite { get; } =
         new LoadableBundleAsset<Sprite>("BiteButton", TouAssets.MainBundle);
 

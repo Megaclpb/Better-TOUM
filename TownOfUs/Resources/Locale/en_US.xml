@@ -297,6 +297,7 @@
   <string name="VampireChatTitle">\%player\% (Vampire Chat)</string>
   <string name="JailorChatTitle">\%player\% (Jailor)</string>
   <string name="JaileeChatTitle">\%player\% (Jailed)</string>
+  <string name="SuccubusChatTitle">\%player\% (Succubus Chat)</string>
   <string name="SystemChatTitle">System</string>
   <string name="AnticheatChatTitle">Anticheat System</string>
   <string name="AnticheatIllegalRpcMessage">A non-lobby feature/ability was run by \%player\%. They may be cheating/exploiting.</string>
