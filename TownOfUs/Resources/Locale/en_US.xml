@@ -428,7 +428,7 @@
   <string name="TouMedicShield">Medic Shield</string>
   <string name="TouWardenFort">Warden Fort</string>
   <string name="TouDoused">Doused</string>
-  <string name="TouHacked">Hacked</string>
+  <string name="TouHacked">Role Blocked</string>
   <string name="TouFlash">Flash</string>
   <string name="TouHypnosis">Hypnosis</string>
   <string name="TouInfection">Infection</string>
@@ -704,7 +704,7 @@
   <string name="TouRoleClericBarrier">Barrier</string>
   <string name="TouRoleClericBarrierWikiDescription">Prevent a Crewmate from being interacted with. The shield will last for \%BarrierCooldown\% seconds.</string>
   <string name="TouRoleClericCleanse">Cleanse</string>
-  <string name="TouRoleClericCleanseWikiDescription">Remove all negative effects on a player. (Douse, Hack, Infect, Blackmail, Blind, Flash, and Hypnosis)</string>
+  <string name="TouRoleClericCleanseWikiDescription">Remove all negative effects on a player. (Douse, Role Block, Infect, Blackmail, Blind, Flash, and Hypnosis)</string>
   <!-- Cleric Feedback -->
   <string name="TouRoleClericMessageTitle">Cleric Feedback</string>
   <string name="TouRoleClericCleansedEffects">Cleansed effects on \%player\%:</string>
@@ -1566,14 +1566,19 @@
   <string name="TouRoleBlackmailerIntroBlurb">Silence Crewmates during meetings</string>
   <string name="TouRoleBlackmailerTabDescription">Silence a crewmate for the next meeting</string>
   <string name="TouRoleBlackmailerWikiDescription">The Blackmailer is an Impostor Support role that can stop a player from speaking (marked with \%symbol\%) in the next meeting</string>
-  <string name="TouRoleBlackmailerBlackmail">Blackmail</string>
+  <string name="TouRoleBlackmailerBlackmail">Silence</string>
   <string name="TouRoleBlackmailerBlackmailWikiDescription">Silence a player for the next meeting. They will be unable to speak. They also will not be able to vote until less or equal number of people are alive than the blackmailer settings allow. The blackmail will be visible to other players only if the setting is toggled</string>
+  <string name="TouRoleBlackmailerHack">Blackmail</string>
+  <string name="TouRoleBlackmailerHackWikiDescription">Disable a player's abilities.</string>
+  <string name="TouRoleBlackmailerHackNotif">Once \%player\% attempts to use any ability, their abilities will be disabled temporarily.</string>
   <!-- Blackmailer Options -->
-  <string name="TouOptionBlackmailerNumberOfBlackmailUsesPerGame">Number Of Blackmail Uses Per Game</string>
-  <string name="TouOptionBlackmailerBlackmailCooldown">Blackmail Cooldown</string>
+  <string name="TouOptionBlackmailerNumberOfBlackmailUsesPerGame">Number Of Silence Uses Per Game</string>
+  <string name="TouOptionBlackmailerBlackmailCooldown">Silence Cooldown</string>
   <string name="TouOptionBlackmailerMaxPlayersAliveUntilVoting">Max Players Alive Until Voting</string>
-  <string name="TouOptionBlackmailerBlackmailSamePersonTwiceInARow">Blackmail Same Person Twice In A Row</string>
-  <string name="TouOptionBlackmailerOnlyTargetSeesBlackmail">Only Target Sees Blackmail</string>
+  <string name="TouOptionBlackmailerBlackmailSamePersonTwiceInARow">Silence Same Person Twice In A Row</string>
+  <string name="TouOptionBlackmailerOnlyTargetSeesBlackmail">Only Target Sees Silence</string>
+  <string name="TouOptionBlackmailerHackCooldown">Blackmail Cooldown</string>
+  <string name="TouOptionBlackmailerHackDuration">Blackmail Duration</string>
   <string name="TouOptionBlackmailerCanKillWithTeammate">Blackmailer Can Kill With Teammate</string>
   <!-- Bomber Wiki / Abilities -->
   <string name="TouRoleBomber">Bomber</string>

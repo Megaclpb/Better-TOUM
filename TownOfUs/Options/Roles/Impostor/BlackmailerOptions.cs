@@ -24,6 +24,12 @@ public sealed class BlackmailerOptions : AbstractOptionGroup<BlackmailerRole>
     [ModdedToggleOption("TouOptionBlackmailerOnlyTargetSeesBlackmail")]
     public bool OnlyTargetSeesBlackmail { get; set; } = false;
 
+    [ModdedNumberOption("TouOptionBlackmailerHackCooldown", 5f, 120f, 2.5f, MiraNumberSuffixes.Seconds)]
+    public float HackCooldown { get; set; } = 25f;
+
+    [ModdedNumberOption("TouOptionBlackmailerHackDuration", 5f, 15f, 2.5f, MiraNumberSuffixes.Seconds)]
+    public float HackDuration { get; set; } = 10f;
+
     [ModdedToggleOption("TouOptionBlackmailerCanKillWithTeammate")]
     public bool BlackmailerKill { get; set; } = true;
 }
