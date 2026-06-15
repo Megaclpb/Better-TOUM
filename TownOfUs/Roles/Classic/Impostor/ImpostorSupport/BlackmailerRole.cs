@@ -67,7 +67,10 @@ public sealed class BlackmailerRole(IntPtr cppPtr) : ImpostorRole(cppPtr), ITouI
             {
                 new(TouLocale.GetParsed($"TouRole{LocaleKey}Blackmail", "Blackmail"),
                     TouLocale.GetParsed($"TouRole{LocaleKey}BlackmailWikiDescription"),
-                    TouImpAssets.BlackmailSprite)
+                    TouImpAssets.BlackmailSprite),
+                new(TouLocale.GetParsed($"TouRole{LocaleKey}Hack", "Hack"),
+                    TouLocale.GetParsed($"TouRole{LocaleKey}HackWikiDescription"),
+                    TouNeutAssets.HackSprite)
             };
         }
     }
