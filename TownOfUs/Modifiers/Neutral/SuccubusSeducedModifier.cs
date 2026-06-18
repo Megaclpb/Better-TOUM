@@ -7,7 +7,7 @@ using TownOfUs.GameOver;
 
 namespace TownOfUs.Modifiers.Neutral;
 
-public sealed class SuccubusModifier(PlayerControl succubus) : BaseModifier
+public sealed class SuccubusSeducedModifier(PlayerControl succubus) : BaseModifier
 {
     public override string ModifierName => TouLocale.Get("Seduced");
     public static bool DoesTasks => false;

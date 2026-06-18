@@ -180,14 +180,8 @@ public static class TeamChatPatches
             {
                 Priority = 25,
                 IsForced = false,
-                IsChatAvailable = () =>
-                {
-                    var genOpt = OptionGroupSingleton<GeneralOptions>.Instance;
-                    return MeetingHud.Instance &&
-                           PlayerControl.LocalPlayer.Data.Role is SuccubusRole// ||
-                           //PlayerControl.LocalPlayer.;
-                           ;
-                },
+                IsChatAvailable = () => MeetingHud.Instance &&
+                    PlayerControl.LocalPlayer.Data.Role is SuccubusRole,
                 SendMessage = (sender, msg) => RpcSendSuccubusChat(sender, msg),
                 GetDisplayText = () => "Succubus Chat",
                 DisplayTextColor = TownOfUsColors.Succubus

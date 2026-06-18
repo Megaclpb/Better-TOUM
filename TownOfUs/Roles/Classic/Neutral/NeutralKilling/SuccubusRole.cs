@@ -9,7 +9,6 @@ using MiraAPI.Utilities;
 using Reactor.Networking.Attributes;
 using TownOfUs.Events.TouEvents;
 using TownOfUs.Modifiers;
-using TownOfUs.Modifiers.Game.Neutral;
 using TownOfUs.Modifiers.Neutral;
 using TownOfUs.Options.Roles.Neutral;
 using TownOfUs.Roles.Crewmate;
@@ -76,7 +75,7 @@ public sealed class SuccubusRole(IntPtr cppPtr) : NeutralRole(cppPtr), ITownOfUs
         MaxRoleCount = 1
     };
 
-    public bool HasImpostorVision => OptionGroupSingleton<SuccubusOptions>.Instance.HasVision;
+    public bool HasImpostorVision => true;
 
     public bool WinConditionMet()
     {
@@ -142,19 +141,13 @@ public sealed class SuccubusRole(IntPtr cppPtr) : NeutralRole(cppPtr), ITownOfUs
         }
         if (player.Data.Role is not SuccubusRole)
         {
-            Error("RpcSuccubusSeduce - Invalid vampire");
+            Error("RpcSuccubusSeduce - Invalid succubus");
             return;
         }
 
         var touAbilityEvent = new TouAbilityEvent(AbilityType.SuccubusSeduce, player, target);
         MiraEventManager.InvokeEvent(touAbilityEvent);
 
-        target.ChangeRole(RoleId.Get<SuccubusRole>());
         target.AddModifier<SuccubusSeducedModifier>();
-
-        if (OptionGroupSingleton<SuccubusOptions>.Instance.CanGuessAsNewVamp)
-        {
-            target.AddModifier<NeutralKillerAssassinModifier>();
-        }
     }
 }
