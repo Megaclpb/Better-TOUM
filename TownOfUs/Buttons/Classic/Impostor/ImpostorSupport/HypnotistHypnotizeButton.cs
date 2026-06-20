@@ -2,6 +2,7 @@
 using MiraAPI.Modifiers;
 using MiraAPI.Utilities.Assets;
 using TownOfUs.Modifiers.Impostor;
+using TownOfUs.Options;
 using TownOfUs.Options.Roles.Impostor;
 using TownOfUs.Roles.Impostor;
 using UnityEngine;
@@ -60,7 +61,7 @@ public sealed class HypnotistHypnotizeButton : TownOfUsRoleButton<HypnotistRole,
 
     public override PlayerControl? GetTarget()
     {
-        return PlayerControl.LocalPlayer.GetClosestLivingPlayer(false, Distance, false,
-            player => !player.HasModifier<HypnotisedModifier>());
+        var isFfa = OptionGroupSingleton<GeneralOptions>.Instance.FFAImpostorMode;
+        return PlayerControl.LocalPlayer.GetClosestLivingPlayer(true, Distance, false, x => (isFfa || !x.IsImpostorAligned()) && !x.HasModifier<HypnotisedModifier>(msModifier => msModifier.Hypnotist.AmOwner));
     }
 }

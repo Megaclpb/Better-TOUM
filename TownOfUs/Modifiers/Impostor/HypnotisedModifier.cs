@@ -1,15 +1,11 @@
-﻿using System.Collections;
-using HarmonyLib;
-using MiraAPI.Events;
-using MiraAPI.GameOptions;
-using MiraAPI.Modifiers;
+﻿using MiraAPI.GameOptions;
 using MiraAPI.Modifiers.Types;
 using MiraAPI.Utilities;
-using Reactor.Utilities;
-using TownOfUs.Events.TouEvents;
 using TownOfUs.Options.Roles.Impostor;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using Reactor.Utilities.Extensions;
+using TownOfUs.Patches;
+using TownOfUs.Utilities.Appearances;
 
 namespace TownOfUs.Modifiers.Impostor;
 
@@ -23,118 +19,84 @@ public sealed class HypnotisedModifier(PlayerControl hypnotist) : TimedModifier
 
     public bool HysteriaActive { get; set; }
 
+    public override void OnActivate()
+    {
+        if (Player.AmOwner/* || Herbalist.AmOwner*/)
+        {
+            List<string> hats = new();
+            List<string> skins = new();
+            List<string> visors = new();
+            List<string> pets = new();
+            List<int> colors = new();
+            foreach (var plr in Helpers.GetAlivePlayers())
+            {
+                hats.Add(plr.Data.DefaultOutfit.HatId);
+                skins.Add(plr.Data.DefaultOutfit.SkinId);
+                visors.Add(plr.Data.DefaultOutfit.VisorId);
+                pets.Add(plr.Data.DefaultOutfit.PetId);
+                colors.Add(plr.Data.DefaultOutfit.ColorId);
+            }
+
+            foreach (var plr in Helpers.GetAlivePlayers())
+            {
+                var randomSize = UnityEngine.Random.RandomRangeInt(3, 5) * 0.2f;
+                var morph = new VisualAppearance(Player.GetDefaultAppearance(), TownOfUsAppearances.Morph)
+                {
+                    HatId = hats.Random(),
+                    SkinId = skins.Random(),
+                    VisorId = visors.Random(),
+                    PetId = pets.Random(),
+                    ColorId = colors.Random(),
+                    NameColor = Color.clear,
+                    ColorBlindTextColor = Color.clear,
+                    Size = new Vector3(randomSize, randomSize, 1f)
+                };
+
+                plr.RawSetAppearance(morph);
+
+                plr.cosmetics.ToggleNameVisible(false);
+            }
+        }
+    }
+
     public override void OnDeath(DeathReason reason)
     {
         ModifierComponent?.RemoveModifier(this);
     }
 
-    public override void OnActivate()
+    public override void OnMeetingStart()
     {
-        base.OnActivate();
-        var touAbilityEvent = new TouAbilityEvent(AbilityType.HypnotistHypno, Hypnotist, Player);
-        MiraEventManager.InvokeEvent(touAbilityEvent);
+        ModifierComponent?.RemoveModifier(this);
     }
 
     public override void OnDeactivate()
     {
-        UnHysteria();
-        Player.MyPhysics.SetForcedBodyType(PlayerControl.LocalPlayer.BodyType);
+        foreach (var player in Helpers.GetAlivePlayers())
+        {
+            player.ResetAppearance();
+            player.cosmetics.ToggleNameVisible(true);
+
+            if (HudManagerPatches.CamouflageCommsEnabled)
+            {
+                player.cosmetics.ToggleNameVisible(false);
+            }
+
+            if (VanillaSystemCheckPatches.ShroomSabotageSystem && VanillaSystemCheckPatches.ShroomSabotageSystem.IsActive)
+            {
+                MushroomMixUp(VanillaSystemCheckPatches.ShroomSabotageSystem, player);
+            }
+        }
     }
 
-    public void Hysteria()
+    public static void MushroomMixUp(MushroomMixupSabotageSystem instance, PlayerControl player)
     {
-        if (Player.HasDied())
+        if (player != null && !player.Data.IsDead && instance.currentMixups.ContainsKey(player.PlayerId))
         {
-            return;
+            var condensedOutfit = instance.currentMixups[player.PlayerId];
+            var playerOutfit = instance.ConvertToPlayerOutfit(condensedOutfit);
+            playerOutfit.NamePlateId = player.Data.DefaultOutfit.NamePlateId;
+
+            player.MixUpOutfit(playerOutfit);
         }
-
-        var touAbilityEvent = new TouAbilityEvent(AbilityType.HypnotistHysteria, Hypnotist, Player);
-        MiraEventManager.InvokeEvent(touAbilityEvent);
-        if (!Player.AmOwner)
-        {
-            return;
-        }
-
-        if (HysteriaActive)
-        {
-            return;
-        }
-
-        // Message($"HypnotisedModifier.Hysteria - {Player.Data.PlayerName}");
-        var players = PlayerControl.AllPlayerControls.ToArray().Where(x => !x.HasDied() && x != Player).ToList();
-
-        var bodyType = Random.RandomRangeInt(0, 10);
-        var bodyShape = PlayerBodyTypes.Normal;
-        var localBodyShape = PlayerBodyTypes.Normal;
-
-        if (bodyType == 1)
-        {
-            bodyShape = PlayerBodyTypes.Horse;
-            localBodyShape = PlayerBodyTypes.Horse;
-        }
-        else if (bodyType == 2)
-        {
-            bodyShape = PlayerBodyTypes.LongSeeker;
-            localBodyShape = PlayerBodyTypes.Long;
-        }
-        else if (bodyType == 3)
-        {
-            bodyShape = PlayerBodyTypes.Long;
-            localBodyShape = PlayerBodyTypes.Long;
-        }
-        else if (bodyType == 4)
-        {
-            bodyShape = PlayerBodyTypes.Seeker;
-        }
-        else if (bodyType == 5)
-        {
-            localBodyShape = PlayerBodyTypes.Classic;
-            bodyShape = PlayerBodyTypes.Classic;
-        }
-
-        PlayerControl.LocalPlayer.MyPhysics.SetForcedBodyType(localBodyShape);
-
-        foreach (var player in players)
-        {
-            player.MyPhysics.SetForcedBodyType(bodyShape);
-            var hidden = Random.RandomRangeInt(0, 4);
-            player.AddModifier<HypnotistHysteriaModifier>(bodyShape, hidden);
-        }
-
-        if (Player.AmOwner)
-        {
-            var notif1 = Helpers.CreateAndShowNotification(
-                $"<b>{TownOfUsColors.ImpSoft.ToTextColor()}You are under a Mass Hysteria!</color></b>", Color.white,
-                new Vector3(0f, 1f, -20f), spr: TouRoleIcons.Hypnotist.LoadAsset());
-
-            notif1.AdjustNotification();
-        }
-
-        HysteriaActive = true;
-    }
-
-    public void UnHysteria()
-    {
-        if (!HysteriaActive)
-        {
-            return;
-        }
-
-        if (!Player.AmOwner)
-        {
-            return;
-        }
-
-        // Message($"HypnotisedModifier.UnHysteria - {Player.Data.PlayerName}");
-        Coroutines.Start(CoUnHysteria());
-    }
-
-    public IEnumerator CoUnHysteria()
-    {
-        yield return new WaitForSeconds(1f);
-
-        ModifierUtils.GetActiveModifiers<HypnotistHysteriaModifier>().Do(x => x.Player.RemoveModifier(x));
-
-        HysteriaActive = false;
     }
 }
