@@ -238,10 +238,6 @@ public static class HudManagerPatches
     public static void UpdateCamouflageComms()
     {
         var isActive = CommsSaboActive();
-        if (PlayerControl.LocalPlayer.IsHysteria())
-        {
-            return;
-        }
 
         foreach (var player in PlayerControl.AllPlayerControls)
         {

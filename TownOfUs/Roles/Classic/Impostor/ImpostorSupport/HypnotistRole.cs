@@ -4,8 +4,6 @@ using MiraAPI.GameOptions;
 using MiraAPI.Modifiers;
 using MiraAPI.Patches.Stubs;
 using MiraAPI.Roles;
-using Reactor.Networking.Attributes;
-using TownOfUs.Modifiers.Crewmate;
 using TownOfUs.Modules;
 using TownOfUs.Options.Roles.Impostor;
 using TownOfUs.Roles.Crewmate;
@@ -17,8 +15,6 @@ public sealed class HypnotistRole(IntPtr cppPtr)
     : ImpostorRole(cppPtr), ITouImpRole, IWikiDiscoverable, IDoomable, ICrewVariant
 {
     private MeetingMenu meetingMenu;
-
-    public bool HysteriaActive { get; set; }
 
     public void FixedUpdate()
     {
@@ -72,41 +68,7 @@ public sealed class HypnotistRole(IntPtr cppPtr)
                 new(TouLocale.GetParsed($"TouRole{LocaleKey}Hypnotize", "Hypnotize"),
                     TouLocale.GetParsed($"TouRole{LocaleKey}HypnotizeWikiDescription"),
                     TouImpAssets.HypnotiseButtonSprite),
-                new(TouLocale.GetParsed($"TouRole{LocaleKey}MassHysteriaWiki", "Mass Hysteria (Meeting)"),
-                    TouLocale.GetParsed($"TouRole{LocaleKey}MassHysteriaWikiDescription"),
-                    TouAssets.HysteriaCleanSprite)
             };
-        }
-    }
-
-    public override void Initialize(PlayerControl player)
-    {
-        RoleBehaviourStubs.Initialize(this, player);
-
-        if (Player.AmOwner)
-        {
-            meetingMenu = new MeetingMenu(
-                this,
-                Click,
-                TouLocale.GetParsed("TouRoleHypnotistMassHysteria"),
-                MeetingAbilityType.Click,
-                TouAssets.HysteriaCleanSprite,
-                null!,
-                IsExempt)
-            {
-                Position = new Vector3(-0.40f, 0f, -3f)
-            };
-        }
-    }
-
-    public override void OnMeetingStart()
-    {
-        RoleBehaviourStubs.OnMeetingStart(this);
-
-        if (Player.AmOwner)
-        {
-            meetingMenu.GenButtons(MeetingHud.Instance,
-                Player.AmOwner && !Player.HasDied() && !HysteriaActive && !Player.HasModifier<JailedModifier>());
         }
     }
 
@@ -125,8 +87,6 @@ public sealed class HypnotistRole(IntPtr cppPtr)
         RoleBehaviourStubs.Deinitialize(this, targetPlayer);
         TouRoleUtils.ClearTaskHeader(Player);
 
-        HysteriaActive = false;
-
         if (Player.AmOwner)
         {
             meetingMenu?.Dispose();
@@ -134,36 +94,8 @@ public sealed class HypnotistRole(IntPtr cppPtr)
         }
     }
 
-    public void Click(PlayerVoteArea voteArea, MeetingHud __)
-    {
-        RpcHysteria(Player);
-
-        if (Player.AmOwner)
-        {
-            meetingMenu.HideButtons();
-        }
-    }
-
     public bool IsExempt(PlayerVoteArea voteArea)
     {
         return voteArea?.TargetPlayerId != Player.PlayerId;
-    }
-
-    [MethodRpc((uint)TownOfUsRpc.Hysteria)]
-    public static void RpcHysteria(PlayerControl player)
-    {
-        if (LobbyBehaviour.Instance)
-        {
-            MiscUtils.RunAnticheatWarning(player);
-            return;
-        }
-        if (player.Data.Role is not HypnotistRole)
-        {
-            Error("RpcHysteria - Invalid hypnotist");
-            return;
-        }
-
-        var role = player.GetRole<HypnotistRole>();
-        role!.HysteriaActive = true;
     }
 }

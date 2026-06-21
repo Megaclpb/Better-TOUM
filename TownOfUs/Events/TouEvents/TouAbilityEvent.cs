@@ -207,7 +207,6 @@ public enum AbilityType
 
     BlackmailerBlackmail,
     HypnotistHypno,
-    HypnotistHysteria,
     JanitorClean,
     MinerPlaceVent,
     MinerRevealVent,

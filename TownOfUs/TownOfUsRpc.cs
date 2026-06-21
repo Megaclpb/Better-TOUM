@@ -67,7 +67,6 @@ public enum TownOfUsRpc : uint
     DoomsayerWin,
     SetExeTarget,
     AddInquisTarget,
-    Hysteria,
     WardenFortify,
     ClearWardenFortify,
     WardenNotify,

@@ -17,8 +17,6 @@ public sealed class HypnotisedModifier(PlayerControl hypnotist) : TimedModifier
     public override bool HideOnUi => true;
     public PlayerControl Hypnotist { get; } = hypnotist;
 
-    public bool HysteriaActive { get; set; }
-
     public override void OnActivate()
     {
         if (Player.AmOwner/* || Herbalist.AmOwner*/)

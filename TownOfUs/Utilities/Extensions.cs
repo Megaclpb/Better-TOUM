@@ -158,13 +158,6 @@ public static class Extensions
         return player.HasModifier<JailedModifier>() && !player.HasDied();
     }
 
-    public static bool IsHysteria(this PlayerControl player)
-    {
-        var mod = player.GetModifier<HypnotisedModifier>();
-
-        return mod?.HysteriaActive == true;
-    }
-
     public static bool HasDied(this PlayerControl player)
     {
         return !player || !player.Data || player.Data.IsDead || player.Data.Disconnected;
