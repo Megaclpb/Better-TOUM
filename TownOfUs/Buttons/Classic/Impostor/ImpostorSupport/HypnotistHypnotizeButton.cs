@@ -24,12 +24,7 @@ public sealed class HypnotistHypnotizeButton : TownOfUsRoleButton<HypnotistRole,
 
     public override bool Enabled(RoleBehaviour? role)
     {
-        return base.Enabled(role) && role is HypnotistRole hypno && !hypno.HysteriaActive;
-    }
-
-    public override bool CanUse()
-    {
-        return base.CanUse() && !Role.HysteriaActive;
+        return base.Enabled(role) && role is HypnotistRole;
     }
 
     public void AftermathHandler()
