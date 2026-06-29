@@ -137,26 +137,46 @@ public sealed class SeerRole(IntPtr cppPtr) : CrewmateRole(cppPtr), ITownOfUsRol
         {
             if (p1 == null || p2 == null) return false;
             if (p1.Data?.Role == null || p2.Data?.Role == null) return false;
+            if (p1.IsImpostorAligned())
+            {
+                if (p2.IsCrewmate()) return true;
+                if (p2.Is(RoleAlignment.NeutralKilling)) return true;
+                if (p2.Is(RoleAlignment.NeutralEvil)) return true;
+                return false;
+            }
+            if (p1.IsCrewmate())
+            {
+                if (p2.IsImpostorAligned()) return true;
+                if (p2.Is(RoleAlignment.NeutralKilling)) return true;
+                if (p2.Is(RoleAlignment.NeutralEvil)) return true;
+                if (p2.Is(RoleAlignment.NeutralPariah)) return true;
+                return false;
+            }
+            if (p1.Is(RoleAlignment.NeutralBenign)) {
+                return false;
+            }
+            if (p1.Is(RoleAlignment.NeutralEvil)) {
+                if (p2.IsImpostorAligned()) return true;
+                if (p2.IsCrewmate()) return true;
+                if (p2.Is(RoleAlignment.NeutralEvil)) return true;
+                if (p2.Is(RoleAlignment.NeutralKilling)) return true;
+                return false;
+            }
+            if (p1.Is(RoleAlignment.NeutralKilling)) {
+                if (p2.IsImpostorAligned()) return true;
+                if (p2.IsCrewmate()) return true;
+                if (p2.Is(RoleAlignment.NeutralEvil)) return true;
+                if (p2.Is(RoleAlignment.NeutralKilling) && p1.Data.Role.Role != p2.Data.Role.Role) return true;
+                return false;
+            }
+            if (p1.Is(RoleAlignment.NeutralOutlier)) {
+                return false;
+            }
+            if (p1.Is(RoleAlignment.NeutralPariah)) {
+                if (p2.IsCrewmate()) return true;
+                return false;
+            }
 
-            var friendlyNb = OptionGroupSingleton<SeerOptions>.Instance.BenignShowFriendlyToAll;
-            var friendlyNe = OptionGroupSingleton<SeerOptions>.Instance.EvilShowFriendlyToAll;
-            var friendlyNo = OptionGroupSingleton<SeerOptions>.Instance.OutlierShowFriendlyToAll;
-
-            if (p1.IsCrewmate() && p2.IsCrewmate()) return false;
-            if (p1.IsImpostor() && p2.IsImpostor()) return false;
-            if (p1.Data.Role.Role == p2.Data.Role.Role) return false; // Two werewolves are friendly to one another
-            if (p1.Is(RoleAlignment.NeutralBenign) && p2.Is(RoleAlignment.NeutralBenign)) return false;
-            if (p1.Is(RoleAlignment.NeutralEvil) && p2.Is(RoleAlignment.NeutralEvil)) return false;
-            if (p1.Is(RoleAlignment.NeutralOutlier) && p2.Is(RoleAlignment.NeutralOutlier)) return false;
-
-            if (p1.Is(RoleAlignment.NeutralBenign) || p2.Is(RoleAlignment.NeutralBenign))
-                return !friendlyNb;
-            if (p1.Is(RoleAlignment.NeutralEvil) || p2.Is(RoleAlignment.NeutralEvil))
-                return !friendlyNe;
-            if (p1.Is(RoleAlignment.NeutralOutlier) || p2.Is(RoleAlignment.NeutralOutlier))
-                return !friendlyNo;
-
-            // You sense that Atony and Cursed Soul appear to be enemies!
             return true;
         }
 

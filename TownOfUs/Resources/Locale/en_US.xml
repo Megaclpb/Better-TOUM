@@ -1142,14 +1142,6 @@
   <string name="TouOptionSeerSalemMode">Compare Players Instead of Checking Alignments</string>
   <string name="TouOptionSeerCooldown">Reveal/Compare Cooldown</string>
   <string name="TouOptionSeerUses">Max Uses of Reveal/Compare</string>
-  <string name="TouOptionSeerNeutralBenignFriendly">Neutral Benign Show Friends To All</string>
-  <string name="TouOptionSeerNeutralEvilFriendly">Neutral Evils Show Friends To All</string>
-  <string name="TouOptionSeerNeutralOutlierFriendly">Neutral Outliers Show Friends To All</string>
-  <string name="TouOptionSeerCrewmateKillingRolesAreRed">Crewmate Killing Roles Are Red</string>
-  <string name="TouOptionSeerNeutralBenignRolesAreRed">Neutral Benign Roles Are Red</string>
-  <string name="TouOptionSeerNeutralEvilRolesAreRed">Neutral Evil Roles Are Red</string>
-  <string name="TouOptionSeerNeutralKillingRolesAreRed">Neutral Killing Roles Are Red</string>
-  <string name="TouOptionSeerNeutralOutlierRolesAreRed">Neutral Outlier Roles Are Red</string>
   <string name="TouOptionSeerTraitorSwapsColors">Traitor Swaps Colors</string>
   <!-- Sentry - Crewmate Support -->
   <!-- Sentry Wiki / Abilities -->
