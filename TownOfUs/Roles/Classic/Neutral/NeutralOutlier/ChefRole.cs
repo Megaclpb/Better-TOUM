@@ -1,17 +1,18 @@
 using AmongUs.GameOptions;
 using Il2CppInterop.Runtime.Attributes;
+using MiraAPI.GameEnd;
 using MiraAPI.GameOptions;
 using MiraAPI.Hud;
 using MiraAPI.Modifiers;
 using MiraAPI.Patches.Stubs;
 using MiraAPI.Roles;
-using MiraAPI.Utilities;
 using Reactor.Networking.Attributes;
 using Reactor.Utilities;
 using Reactor.Utilities.Extensions;
 using System.Text;
 using TownOfUs.Buttons.Neutral;
 using TownOfUs.Events.Neutral;
+using TownOfUs.GameOver;
 using TownOfUs.Interfaces;
 using TownOfUs.Modifiers;
 using TownOfUs.Modifiers.Game.Universal;
@@ -25,7 +26,7 @@ using UnityEngine;
 
 namespace TownOfUs.Roles.Neutral;
 
-public sealed class ChefRole(IntPtr cppPtr) : NeutralRole(cppPtr), ITownOfUsRole, IWikiDiscoverable, IDoomable, ICrewVariant, IContinuesGame, IUnlovable
+public sealed class ChefRole(IntPtr cppPtr) : NeutralRole(cppPtr), ITownOfUsRole, IWikiDiscoverable, IDoomable, ICrewVariant, IUnlovable
 {
     public override void SpawnTaskHeader(PlayerControl playerControl)
     {
@@ -34,12 +35,11 @@ public sealed class ChefRole(IntPtr cppPtr) : NeutralRole(cppPtr), ITownOfUsRole
             return;
         }
         ImportantTextTask orCreateTask = PlayerTask.GetOrCreateTask<ImportantTextTask>(playerControl, 0);
-        orCreateTask.Text = $"{TownOfUsColors.Neutral.ToTextColor()}{TouLocale.GetParsed("NeutralOutlierTaskHeader")}</color>";
+        orCreateTask.Text = $"{TownOfUsColors.Neutral.ToTextColor()}{TouLocale.GetParsed("NeutralPariahTaskHeader")}</color>";
         orCreateTask.name = "NeutralRoleText";
     }
 
     public bool IsUnlovable => true;
-    public bool ContinuesGame => !Player.HasDied() && StoredBodies.Count != 0 && Helpers.GetAlivePlayers().Any(x => !x.HasModifier<ChefServedModifier>() && x != Player);
     public RoleBehaviour CrewVariant => RoleManager.Instance.GetRole((RoleTypes)RoleId.Get<ForensicRole>());
     public DoomableType DoomHintType => DoomableType.Death;
     [HideFromIl2Cpp] public List<KeyValuePair<int, PlatterType>> StoredBodies { get; set; } = [];
@@ -77,7 +77,7 @@ public sealed class ChefRole(IntPtr cppPtr) : NeutralRole(cppPtr), ITownOfUsRole
 
     public Color RoleColor => TownOfUsColors.Chef;
     public ModdedRoleTeams Team => ModdedRoleTeams.Custom;
-    public RoleAlignment RoleAlignment => RoleAlignment.NeutralOutlier;
+    public RoleAlignment RoleAlignment => RoleAlignment.NeutralPariah;
 
     public CustomRoleConfiguration Configuration => new(this)
     {
@@ -87,13 +87,6 @@ public sealed class ChefRole(IntPtr cppPtr) : NeutralRole(cppPtr), ITownOfUsRole
         MaxRoleCount = 1,
         GhostRole = (RoleTypes)RoleId.Get<NeutralGhostRole>()
     };
-
-    public bool MetWinCon => TargetsServed;
-
-    public bool WinConditionMet()
-    {
-        return false;
-    }
 
     [HideFromIl2Cpp]
     public StringBuilder SetTabText()
@@ -161,7 +154,8 @@ public sealed class ChefRole(IntPtr cppPtr) : NeutralRole(cppPtr), ITownOfUsRole
 
     public override bool DidWin(GameOverReason gameOverReason)
     {
-        return TargetsServed;
+        return !(gameOverReason is GameOverReason.CrewmatesByVote or GameOverReason.CrewmatesByTask
+            or GameOverReason.ImpostorDisconnect || gameOverReason == CustomGameOver.GameOverReason<DrawGameOver>());
     }
 
     [MethodRpc((uint)TownOfUsRpc.CookBody)]
