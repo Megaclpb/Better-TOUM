@@ -144,6 +144,10 @@ public sealed class VampireBiteButton : TownOfUsKillRoleButton<VampireRole, Play
         {
             canConvertRole = options.ConvertNeutralOutlier.Value;
         }
+        else if (target.Is(RoleAlignment.NeutralPariah))
+        {
+            canConvertRole = false;
+        }
 
         return canConvertRole && canConvertAlliance && vampireCount < 2 && totalVamps < options.MaxVampires &&
                (!PlayerControl.LocalPlayer.HasModifier<VampireBittenModifier>() || options.CanConvertAsNewVamp);

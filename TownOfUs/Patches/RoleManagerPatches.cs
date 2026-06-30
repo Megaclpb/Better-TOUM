@@ -112,13 +112,14 @@ public static class TouRoleManagerPatches
     /// <summary>
     /// Adjusts neutral role counts to ensure requested neutral roles via /up are included.
     /// </summary>
-    private static void AdjustNeutralCountsForUpRequests(ref int nbCount, ref int neCount, ref int nkCount, ref int noCount, int crewmateCount)
+    private static void AdjustNeutralCountsForUpRequests(ref int nbCount, ref int neCount, ref int nkCount, ref int noCount, ref int npCount, int crewmateCount)
     {
         // Track which neutral categories are requested via /up (must be at least 1)
         var upRequestedBenign = false;
         var upRequestedEvil = false;
         var upRequestedKilling = false;
         var upRequestedOutlier = false;
+        var upRequestedPariah = false;
 
         var upRequests = UpCommandRequests.GetAllRequests();
         foreach (var (playerName, _) in upRequests)
@@ -164,28 +165,36 @@ public static class TouRoleManagerPatches
                             noCount = 1;
                         }
                         break;
+                    case RoleAlignment.NeutralPariah:
+                        upRequestedPariah = true;
+                        if (npCount == 0)
+                        {
+                            npCount = 1;
+                        }
+                        break;
                 }
             }
         }
 
         // Re-adjust to ensure crewmates still outnumber neutrals after /up adjustments
         // But protect /up requested categories from being reduced below 1
-        AdjustNeutralCountsWithProtection(ref nbCount, ref neCount, ref nkCount, ref noCount, crewmateCount,
-            upRequestedBenign, upRequestedEvil, upRequestedKilling, upRequestedOutlier);
+        AdjustNeutralCountsWithProtection(ref nbCount, ref neCount, ref nkCount, ref noCount, ref npCount, crewmateCount,
+            upRequestedBenign, upRequestedEvil, upRequestedKilling, upRequestedOutlier, upRequestedPariah);
     }
 
     /// <summary>
     /// Adjusts neutral role counts to ensure crewmates always outnumber neutrals,
     /// while protecting /up requested categories from being reduced below 1.
     /// </summary>
-    private static void AdjustNeutralCountsWithProtection(ref int nbCount, ref int neCount, ref int nkCount, ref int noCount, int crewmateCount,
-        bool protectBenign, bool protectEvil, bool protectKilling, bool protectOutlier)
+    private static void AdjustNeutralCountsWithProtection(ref int nbCount, ref int neCount, ref int nkCount, ref int noCount, ref int npCount, int crewmateCount,
+        bool protectBenign, bool protectEvil, bool protectKilling, bool protectOutlier, bool protectPariah)
     {
         var roleOptions = OptionGroupSingleton<RoleOptions>.Instance;
         var minBenign = (int)roleOptions.MinNeutralBenign.Value;
         var minEvil = (int)roleOptions.MinNeutralEvil.Value;
         var minKilling = (int)roleOptions.MinNeutralKiller.Value;
         var minOutlier = (int)roleOptions.MinNeutralOutlier.Value;
+        var minPariah = (int)roleOptions.MinNeutralPariah.Value;
 
         // Adjust minimums to protect /up requested categories
         if (protectBenign && minBenign < 1)
@@ -204,11 +213,15 @@ public static class TouRoleManagerPatches
         {
             minOutlier = 1;
         }
+        if (protectPariah && minPariah < 1)
+        {
+            minPariah = 1;
+        }
 
         // Crew must always start out outnumbering neutrals, so subtract roles until that can be guaranteed.
-        while (Math.Ceiling((double)crewmateCount / 2) <= nbCount + neCount + nkCount + noCount)
+        while (Math.Ceiling((double)crewmateCount / 2) <= nbCount + neCount + nkCount + noCount + npCount)
         {
-            var totalNeutrals = nbCount + neCount + nkCount + noCount;
+            var totalNeutrals = nbCount + neCount + nkCount + noCount + npCount;
             if (totalNeutrals == 0)
             {
                 break;
@@ -218,7 +231,7 @@ public static class TouRoleManagerPatches
             // Over many games, it would silently favor removing certain neutral factions more often than others (for example, neutral benign was usually protected more than outlier).
             // Now, every faction has equal probability per subtraction. Statistically the most fair way to do it.
             // (I know this is nitpicky but I think it's better than just a list regardless)
-            var factionIndices = new List<int> { 0, 1, 2, 3 };
+            var factionIndices = new List<int> { 0, 1, 2, 3, 4 };
             factionIndices.Shuffle();
 
             // Determine which factions can be subtracted (respecting protected minimums)
@@ -226,7 +239,8 @@ public static class TouRoleManagerPatches
             var canSubtractEvil = neCount > minEvil;
             var canSubtractKilling = nkCount > minKilling;
             var canSubtractOutlier = noCount > minOutlier;
-            var canSubtractAny = canSubtractBenign || canSubtractEvil || canSubtractKilling || canSubtractOutlier;
+            var canSubtractPariah = npCount > minPariah;
+            var canSubtractAny = canSubtractBenign || canSubtractEvil || canSubtractKilling || canSubtractOutlier || canSubtractPariah;
 
             // Try to subtract from a random faction that can be subtracted
             bool subtracted = false;
@@ -248,6 +262,10 @@ public static class TouRoleManagerPatches
                         break;
                     case 3 when noCount > 0 && (canSubtractOutlier || !canSubtractAny):
                         noCount -= 1;
+                        subtracted = true;
+                        break;
+                    case 4 when npCount > 0 && (canSubtractPariah || !canSubtractAny):
+                        npCount -= 1;
                         subtracted = true;
                         break;
                 }
@@ -276,6 +294,10 @@ public static class TouRoleManagerPatches
                 else if (noCount > minOutlier)
                 {
                     noCount -= 1;
+                }
+                else if (npCount > minPariah)
+                {
+                    npCount -= 1;
                 }
                 else
                 {
@@ -421,9 +443,11 @@ public static class TouRoleManagerPatches
             (int)roleOptions.MaxNeutralKiller.Value + 1);
         var noCount = Random.RandomRange((int)roleOptions.MinNeutralOutlier.Value,
             (int)roleOptions.MaxNeutralOutlier.Value + 1);
+        var npCount = Random.RandomRange((int)roleOptions.MinNeutralPariah.Value,
+            (int)roleOptions.MaxNeutralPariah.Value + 1);
 
         // Adjust neutral counts for /up requests and ensure crewmates outnumber neutrals
-        AdjustNeutralCountsForUpRequests(ref nbCount, ref neCount, ref nkCount, ref noCount, crewmates.Count);
+        AdjustNeutralCountsForUpRequests(ref nbCount, ref neCount, ref nkCount, ref noCount, ref npCount, crewmates.Count);
 
         var excluded = MiscUtils.SpawnableRoles.Where(x => x is ISpawnChange { NoSpawn: true }).Select(x => x.Role);
 

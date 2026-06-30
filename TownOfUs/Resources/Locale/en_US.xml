@@ -160,6 +160,7 @@
   <string name="NeutralEvilTaskHeader">You must complete your goal at all costs.\%nl\%Fake Tasks:</string>
   <string name="NeutralKillingTaskHeader">Eliminate all other teams by any means.\%nl\%Fake Tasks:</string>
   <string name="NeutralOutlierTaskHeader">You must complete your objective to win.\%nl\%Fake Tasks:</string>
+  <string name="NeutralPariahTaskHeader">Make the crewmates lose to win.\%nl\%Fake Tasks:</string>
   <string name="NeutralSpectreTaskHeader">You're dead. Complete your tasks to win!</string>
   <!-- Role List -->
   <string name="SetRoleList">Set Role List</string>
@@ -167,6 +168,7 @@
   <string name="NeutralBenigns">Neutral Benigns</string>
   <string name="NeutralEvils">Neutral Evils</string>
   <string name="NeutralOutliers">Neutral Outliers</string>
+  <string name="NeutralPariahs">Neutral Pariahs</string>
   <string name="NeutralKillers">Neutral Killers</string>
   <string name="MinimumShort">Min</string>
   <string name="MaximumShort">Max</string>
@@ -186,6 +188,7 @@
   <string name="NeutralBenign">Neutral Benign</string>
   <string name="NeutralEvil">Neutral Evil</string>
   <string name="NeutralOutlier">Neutral Outlier</string>
+  <string name="NeutralPariah">Neutral Pariah</string>
   <string name="NeutralKilling">Neutral Killing</string>
   <string name="ImpostorConcealing">Impostor Concealing</string>
   <string name="ImpostorKilling">Impostor Killing</string>
@@ -1042,11 +1045,13 @@
   <string name="TouOptionOracleNeutralEvilShowEvil">Neutral Evils Show Up As Evil</string>
   <string name="TouOptionOracleNeutralKillingShowEvil">Neutral Killers Show Up As Evil</string>
   <string name="TouOptionOracleNeutralOutlierShowEvil">Neutral Outliers Show Up As Evil</string>
+  <string name="TouOptionOracleNeutralPariahShowEvil">Neutral Pariahs Show Up As Evil</string>
   <string name="TouOptionOracleNeutralsThatShowEvil">Neutrals That Appear Evil</string>
   <string name="TouOptionOracleNeutBadBenign">Benign</string>
   <string name="TouOptionOracleNeutBadEvil">Evils</string>
   <string name="TouOptionOracleNeutBadKilling">Killing</string>
   <string name="TouOptionOracleNeutBadOutlier">Outliers</string>
+  <string name="TouOptionOracleNeutBadPariah">Pariahs</string>
   <string name="TouOptionOracleNeutBadNone">None</string>
   <!-- Oracle Feedback -->
   <string name="TouRoleOracleConfessionTitle">Oracle Confession</string>
@@ -1145,11 +1150,12 @@
   <string name="TouOptionSeerNeutralBenignFriendly">Neutral Benign Show Friends To All</string>
   <string name="TouOptionSeerNeutralEvilFriendly">Neutral Evils Show Friends To All</string>
   <string name="TouOptionSeerNeutralOutlierFriendly">Neutral Outliers Show Friends To All</string>
+  <string name="TouOptionSeerNeutralPariahFriendly">Neutral Pariahs Show Friends To All</string>
   <string name="TouOptionSeerCrewmateKillingRolesAreRed">Crewmate Killing Roles Are Red</string>
   <string name="TouOptionSeerNeutralBenignRolesAreRed">Neutral Benign Roles Are Red</string>
   <string name="TouOptionSeerNeutralEvilRolesAreRed">Neutral Evil Roles Are Red</string>
   <string name="TouOptionSeerNeutralKillingRolesAreRed">Neutral Killing Roles Are Red</string>
-  <string name="TouOptionSeerNeutralOutlierRolesAreRed">Neutral Outlier Roles Are Red</string>
+  <string name="TouOptionSeerNeutralPariahRolesAreRed">Neutral Pariah Roles Are Red</string>
   <string name="TouOptionSeerTraitorSwapsColors">Traitor Swaps Colors</string>
   <!-- Sentry - Crewmate Support -->
   <!-- Sentry Wiki / Abilities -->
@@ -1308,11 +1314,13 @@
   <string name="TouOptionSheriffCanShootNeutralEvilRoles">Can Shoot Neutral Evil Roles</string>
   <string name="TouOptionSheriffCanShootNeutralKillingRoles">Can Shoot Neutral Killing Roles</string>
   <string name="TouOptionSheriffCanShootNeutralOutlierRoles">Can Shoot Neutral Outlier Roles</string>
+  <string name="TouOptionSheriffCanShootNeutralPariahRoles">Can Shoot Neutral Pariah Roles</string>
   <string name="TouOptionSheriffValidNeutralShots">Valid Neutral Shots</string>
   <string name="TouOptionSheriffNeutShootBenign">Benign</string>
   <string name="TouOptionSheriffNeutShootEvil">Evils</string>
   <string name="TouOptionSheriffNeutShootKilling">Killing</string>
   <string name="TouOptionSheriffNeutShootOutlier">Outliers</string>
+  <string name="TouOptionSheriffNeutShootPariah">Pariahs</string>
   <string name="TouOptionSheriffNeutShootNone">None</string>
   <string name="TouOptionSheriffMisfireKills">Misfire Kills</string>
   <string name="TouOptionSheriffKillEnumSheriff">Self</string>
@@ -1485,11 +1493,13 @@
   <string name="TouOptionVigilanteCanGuessNeutralEvilRoles">Can Guess Neutral Evil Roles</string>
   <string name="TouOptionVigilanteCanGuessNeutralKillingRoles">Can Guess Neutral Killing Roles</string>
   <string name="TouOptionVigilanteCanGuessNeutralOutlierRoles">Can Guess Neutral Outlier Roles</string>
+  <string name="TouOptionVigilanteCanGuessNeutralPariahRoles">Can Guess Neutral Pariah Roles</string>
   <string name="TouOptionVigilanteGuessableNeutrals">Guessable Neutrals</string>
   <string name="TouOptionVigilanteGuessableBenign">Benign</string>
   <string name="TouOptionVigilanteGuessableEvil">Evils</string>
   <string name="TouOptionVigilanteGuessableKilling">Killing</string>
   <string name="TouOptionVigilanteGuessableOutlier">Outliers</string>
+  <string name="TouOptionVigilanteGuessablePariah">Pariahs</string>
   <string name="TouOptionVigilanteGuessableNone">None</string>
   <string name="TouOptionVigilanteCanGuessKillerModifiers">Can Guess Killer Modifiers</string>
   <string name="TouOptionVigilanteCanGuessAlliances">Can Guess Alliance Modifiers</string>
@@ -2196,10 +2206,12 @@
   <string name="TouOptionVampireNeutConvertBenign">Benign</string>
   <string name="TouOptionVampireNeutConvertEvil">Evils</string>
   <string name="TouOptionVampireNeutConvertOutlier">Outliers</string>
+  <string name="TouOptionVampireNeutConvertPariah">Pariahs</string>
   <string name="TouOptionVampireNeutConvertNone">None</string>
   <string name="TouOptionVampireConvertNeutralBenign">Can Convert Neutral Benign Roles</string>
   <string name="TouOptionVampireConvertNeutralEvil">Can Convert Neutral Evil Roles</string>
   <string name="TouOptionVampireConvertNeutralOutlier">Can Convert Neutral Outlier Roles</string>
+  <string name="TouOptionVampireConvertNeutralPariah">Can Convert Neutral Pariah Roles</string>
   <string name="TouOptionVampireConvertLovers">Can Convert Lovers</string>
   <string name="TouOptionVampireNewVampiresConvert">New Vampires Can Convert</string>
   <string name="TouOptionVampireCanVent">Vampires Can Vent</string>

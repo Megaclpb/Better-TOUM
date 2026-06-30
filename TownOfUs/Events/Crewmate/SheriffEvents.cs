@@ -47,6 +47,7 @@ public static class SheriffEvents
                 (target.IsCrewmate() && target.TryGetModifier<AllianceGameModifier>(out var allyMod) &&
                  !allyMod.GetsPunished) ||
                 (target.Is(RoleAlignment.NeutralOutlier) && options.ShootNeutralOutlier.Value) ||
+                target.Is(RoleAlignment.NeutralPariah) ||
                 (target.Is(RoleAlignment.NeutralEvil) && options.ShootNeutralEvil.Value) ||
                 (target.Is(RoleAlignment.NeutralKilling) && options.ShootNeutralKiller.Value) ||
                 (target.Is(RoleAlignment.NeutralBenign) && options.ShootNeutralBenign.Value))

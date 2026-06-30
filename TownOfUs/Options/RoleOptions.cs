@@ -26,6 +26,7 @@ public sealed class RoleOptions : AbstractOptionGroup
         MiscUtils.GetParsedRoleBucket("NeutralEvil"),
         MiscUtils.GetParsedRoleBucket("NeutralKilling"),
         MiscUtils.GetParsedRoleBucket("NeutralOutlier"),
+        MiscUtils.GetParsedRoleBucket("NeutralPariah"),
 
         MiscUtils.GetParsedRoleBucket("CommonNeutral"),
         MiscUtils.GetParsedRoleBucket("SpecialNeutral"),
@@ -278,8 +279,20 @@ public sealed class RoleOptions : AbstractOptionGroup
             Visible = () => OptionGroupSingleton<RoleOptions>.Instance.CurrentRoleDistribution() is RoleDistribution.MinMaxList
         };
 
+    public ModdedNumberOption MinNeutralPariah { get; } =
+        new("Min Neutral Pariahs", 0f, 0f, 15f, 1f, MiraNumberSuffixes.None, "0")
+        {
+            Visible = () => OptionGroupSingleton<RoleOptions>.Instance.CurrentRoleDistribution() is RoleDistribution.MinMaxList
+        };
+
     public ModdedNumberOption MaxNeutralOutlier { get; } =
         new("Max Neutral Outliers", 0f, 0f, 15f, 1f, MiraNumberSuffixes.None, "0")
+        {
+            Visible = () => OptionGroupSingleton<RoleOptions>.Instance.CurrentRoleDistribution() is RoleDistribution.MinMaxList
+        };
+
+    public ModdedNumberOption MaxNeutralPariah { get; } =
+        new("Max Neutral Pariahs", 0f, 0f, 15f, 1f, MiraNumberSuffixes.None, "0")
         {
             Visible = () => OptionGroupSingleton<RoleOptions>.Instance.CurrentRoleDistribution() is RoleDistribution.MinMaxList
         };
@@ -328,6 +341,7 @@ public enum RoleListOption
     NeutEvil,
     NeutKilling,
     NeutOutlier,
+    NeutPariah,
 
     NeutCommon, // Benign / Evil
     NeutSpecial, // Killing / Outlier

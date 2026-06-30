@@ -912,7 +912,8 @@ public static class HudManagerPatches
                         (NeutralBenigns, list.MinNeutralBenign.Value, list.MaxNeutralBenign.Value),
                         (NeutralEvils, list.MinNeutralEvil.Value, list.MaxNeutralEvil.Value),
                         (NeutralKillers, list.MinNeutralKiller.Value, list.MaxNeutralKiller.Value),
-                        (NeutralOutliers, list.MinNeutralOutlier.Value, list.MaxNeutralOutlier.Value)
+                        (NeutralOutliers, list.MinNeutralOutlier.Value, list.MaxNeutralOutlier.Value),
+                        (NeutralPariahs, list.MinNeutralPariah.Value, list.MaxNeutralPariah.Value)
                     };
                     
                     foreach (var (label, min, max) in minMaxData)
@@ -1199,6 +1200,7 @@ public static class HudManagerPatches
     public static string NeutralBenigns { get; private set; } = "Neutral Benigns";
     public static string NeutralEvils { get; private set; } = "Neutral Evils";
     public static string NeutralOutliers { get; private set; } = "Neutral Outliers";
+    public static string NeutralPariahs { get; private set; } = "Neutral Pariahs";
     public static string NeutralKillers { get; private set; } = "Neutral Killers";
     public static string StoredMinimum { get; private set; } = "Min";
     public static string StoredMaximum { get; private set; } = "Max";
@@ -1218,6 +1220,7 @@ public static class HudManagerPatches
         "NeutralEvil",
         "NeutralKilling",
         "NeutralOutlier",
+        "NeutralPariah",
 
         "CommonNeutral",
         "SpecialNeutral",
@@ -1252,6 +1255,7 @@ public static class HudManagerPatches
             TouLocale.Get("NeutralBenigns"),
             TouLocale.Get("NeutralEvils"),
             TouLocale.Get("NeutralOutliers"),
+            TouLocale.Get("NeutralPariahs"),
             TouLocale.Get("NeutralKillers")
         ];
         List<string> listsNew = [];
@@ -1274,7 +1278,8 @@ public static class HudManagerPatches
         NeutralBenigns = listsNew[0];
         NeutralEvils = listsNew[1];
         NeutralOutliers = listsNew[2];
-        NeutralKillers = listsNew[3];
+        NeutralPariahs = listsNew[3];
+        NeutralKillers = listsNew[4];
         StoredMinimum = TouLocale.Get("MinimumShort");
         StoredMaximum = TouLocale.Get("MaximumShort");
         List<string> localizedRoleList = [];
@@ -1339,6 +1344,7 @@ public static class HudManagerPatches
         { RoleListOption.NeutEvil, RoleAlignment.NeutralEvil },
         { RoleListOption.NeutKilling, RoleAlignment.NeutralKilling },
         { RoleListOption.NeutOutlier, RoleAlignment.NeutralOutlier },
+        { RoleListOption.NeutPariah, RoleAlignment.NeutralPariah },
 
         { RoleListOption.ImpConceal, RoleAlignment.ImpostorConcealing },
         { RoleListOption.ImpKilling, RoleAlignment.ImpostorKilling },

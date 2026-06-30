@@ -129,6 +129,12 @@ public sealed class SheriffShootButton : TownOfUsKillRoleButton<SheriffRole, Pla
 
                     break;
 
+                case RoleAlignment.NeutralPariah:
+                    PlayerControl.LocalPlayer.RpcCustomMurder(Target, MeetingCheck.OutsideMeeting);
+
+                    break;
+
+
                 case RoleAlignment.NeutralKilling:
                     if (!options.ShootNeutralKiller.Value)
                     {

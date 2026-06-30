@@ -77,7 +77,7 @@ public sealed class OracleRole(IntPtr cppPtr) : CrewmateRole(cppPtr), ITownOfUsR
         }
 
         var confessing = ModifierUtils
-            .GetPlayersWithModifier<OracleConfessModifier>([HideFromIl2Cpp](x) => x.Oracle == Player).FirstOrDefault();
+            .GetPlayersWithModifier<OracleConfessModifier>([HideFromIl2Cpp] (x) => x.Oracle == Player).FirstOrDefault();
 
         if (confessing == null)
         {
@@ -110,10 +110,9 @@ public sealed class OracleRole(IntPtr cppPtr) : CrewmateRole(cppPtr), ITownOfUsR
                                                                                (x.IsImpostor() ||
                                                                                    (x.Is(RoleAlignment.NeutralOutlier) &&
                                                                                        options.ShowNeutralOutlierAsEvil.Value) ||
-                                                                                   (x.Is(RoleAlignment
-                                                                                           .NeutralKilling) &&
-                                                                                       options
-                                                                                           .ShowNeutralKillingAsEvil.Value) ||
+                                                                                   x.Is(RoleAlignment.NeutralPariah) ||
+                                                                                   (x.Is(RoleAlignment.NeutralKilling) &&
+                                                                                       options.ShowNeutralKillingAsEvil.Value) ||
                                                                                    (x.Is(RoleAlignment.NeutralEvil) &&
                                                                                        options.ShowNeutralEvilAsEvil.Value) ||
                                                                                    (x.Is(RoleAlignment.NeutralBenign) &&
@@ -180,7 +179,7 @@ public sealed class OracleRole(IntPtr cppPtr) : CrewmateRole(cppPtr), ITownOfUsR
         var mod = exiled.GetModifier<OracleBlessedModifier>();
 
         if (mod != null)
-            // Message($"RpcOracleBless exiled '{exiled.Data.PlayerName}' SavedFromExile");
+        // Message($"RpcOracleBless exiled '{exiled.Data.PlayerName}' SavedFromExile");
         {
             mod.SavedFromExile = true;
         }
