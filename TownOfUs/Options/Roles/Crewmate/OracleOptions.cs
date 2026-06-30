@@ -45,18 +45,12 @@ public sealed class OracleOptions : AbstractOptionGroup<OracleRole>, IWikiOption
         var nkValid = ShowNeutralKillingAsEvil.Value;
         var noValid = ShowNeutralOutlierAsEvil.Value;
 
-        if (!nbValid && !neValid && !nkValid && !noValid)
-        {
-            var newArray = new []
-                { $"{title}: {TouLocale.GetParsed("TouOptionOracleNeutBadNone")}" };
-            return newArray;
-        }
-
         var selected = new List<string>();
         if (nbValid) selected.Add(TouLocale.GetParsed("TouOptionOracleNeutBadBenign"));
         if (neValid) selected.Add(TouLocale.GetParsed("TouOptionOracleNeutBadEvil"));
         if (nkValid) selected.Add(TouLocale.GetParsed("TouOptionOracleNeutBadKilling"));
         if (noValid) selected.Add(TouLocale.GetParsed("TouOptionOracleNeutBadOutlier"));
+        selected.Add(TouLocale.GetParsed("TouOptionOracleNeutBadPariah"));
 
         var names = selected
             .Distinct()

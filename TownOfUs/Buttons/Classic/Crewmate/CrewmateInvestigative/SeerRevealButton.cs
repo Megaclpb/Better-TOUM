@@ -93,6 +93,8 @@ public sealed class SeerRevealButton : TownOfUsRoleButton<SeerRole, PlayerContro
                 possibleAlignment.Append("Neutral Outlier, ");
             }
 
+            possibleAlignment.Append("Neutral Pariah, ");
+
             if (options.SwapTraitorColors)
             {
                 possibleAlignment.Append("Traitor, ");
@@ -147,6 +149,8 @@ public sealed class SeerRevealButton : TownOfUsRoleButton<SeerRole, PlayerContro
                 possibleAlignment.Append("Neutral Outlier, ");
             }
 
+            possibleAlignment.Append("Neutral Pariah, ");
+
             if (possibleAlignment.Length > 3)
             {
                 possibleAlignment = possibleAlignment.Remove(possibleAlignment.Length - 2, 2);
@@ -168,6 +172,7 @@ public sealed class SeerRevealButton : TownOfUsRoleButton<SeerRole, PlayerContro
                 (target.Is(RoleAlignment.NeutralEvil) && options.ShowNeutralEvilAsRed) ||
                 (target.Is(RoleAlignment.NeutralKilling) && options.ShowNeutralKillingAsRed) ||
                 (target.Is(RoleAlignment.NeutralOutlier) && options.ShowNeutralOutlierAsRed) ||
+                target.Is(RoleAlignment.NeutralPariah) ||
                 (target.IsImpostor() && !target.IsTraitor()) ||
                 (target.IsTraitor() && options.SwapTraitorColors));
     }

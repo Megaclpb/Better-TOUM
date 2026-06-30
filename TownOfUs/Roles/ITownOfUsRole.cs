@@ -122,6 +122,11 @@ public interface ITownOfUsRole : ICustomRole
                 return TouRoleGroups.NeutralOutlier;
             }
 
+            if (RoleAlignment == RoleAlignment.NeutralPariah)
+            {
+                return TouRoleGroups.NeutralPariah;
+            }
+
             if (RoleAlignment == RoleAlignment.NeutralKilling)
             {
                 return TouRoleGroups.NeutralKiller;
@@ -257,6 +262,7 @@ public enum RoleAlignment
     NeutralBenign,
     NeutralEvil,
     NeutralOutlier,
+    NeutralPariah,
     NeutralKilling,
     GameOutlier, // I honestly have no idea what else to put here
     CrewmateGhost,

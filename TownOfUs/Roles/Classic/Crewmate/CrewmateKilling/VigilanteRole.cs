@@ -304,6 +304,12 @@ public sealed class VigilanteRole(IntPtr cppPtr) : CrewmateRole(cppPtr), ITouCre
             return options.VigilanteGuessNeutralOutlier.Value;
         }
 
+        if (alignment == RoleAlignment.NeutralPariah)
+        {
+            return true;
+        }
+
+
         return false;
     }
 

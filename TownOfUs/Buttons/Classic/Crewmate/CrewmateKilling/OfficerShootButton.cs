@@ -143,7 +143,7 @@ public sealed class OfficerShootButton : TownOfUsKillRoleButton<OfficerRole, Pla
         {
             var safeNeutral = options.NonKillingNeutralsAreInnocent.Value &&
                               alignment is RoleAlignment.NeutralBenign
-                                  or RoleAlignment.NeutralEvil or RoleAlignment.NeutralOutlier;
+                                  or RoleAlignment.NeutralEvil or RoleAlignment.NeutralOutlier or RoleAlignment.NeutralPariah;
             if (safeNeutral || !evilOfficer && Target.IsCrewmate())
             {
                 Misfire();

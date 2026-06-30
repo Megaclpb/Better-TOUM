@@ -22,6 +22,7 @@ public static class TouRoleGroups
     public static RoleOptionsGroup NeutralBenign { get; } = new("Neutral Benign Roles", Color.gray);
     public static RoleOptionsGroup NeutralEvil { get; } = new("Neutral Evil Roles", Color.gray);
     public static RoleOptionsGroup NeutralOutlier { get; } = new("Neutral Outlier Roles", Color.gray);
+    public static RoleOptionsGroup NeutralPariah { get; } = new("Neutral Pariah Roles", Color.gray);
     public static RoleOptionsGroup NeutralKiller { get; } = new("Neutral Killing Roles", Color.gray);
     public static RoleOptionsGroup NeutralGhost { get; } = new("Neutral Ghost Roles", Color.gray);
     public static RoleOptionsGroup NeutralAfterlife { get; } = new("Neutral Afterlife Roles", Color.gray);
