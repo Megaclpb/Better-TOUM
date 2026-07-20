@@ -2051,7 +2051,7 @@
   <string name="TouRoleChefIntroBlurb">Fresh and ready to serve</string>
   <string name="TouRoleChefTabDescription">Feed the crewmates with cooked corpses.\%nl\%Once your quota is fed, leave in victory!</string>
   <string name="TouRoleChefTabCounter">Bodies Fed: \%bodiesFed\% / \%bodiesTotal\%</string>
-  <string name="TouRoleChefWikiDescription">The Chef is a Neutral Outlier role that wins with any other faction as long as they have served enough dead bodies to the crew.</string>
+  <string name="TouRoleChefWikiDescription">The Chef is a Neutral Pariah role that feeds dead bodies to crewmates.</string>
   <!-- Chef Feedback -->
   <string name="TouRoleChefMessageTitle">Chef Feedback</string>
   <string name="TouRoleChefCustomerMessage">You have been served a dead body by the Chef!</string>
